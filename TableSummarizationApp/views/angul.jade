@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  h1= title
+  script(src='http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js')
+  p Welcome to my World
+  div(ng-app='' ng-controller="myController")
+    p {{cont}}
+    input(ng-model='a' type='number')
+    br.
+    {{a+a}}.
+    ul(ng-init='manas={"b":3,"c":4}')
+      li(ng-repeat="x in lis") {{x}}
+  script.
+    function myController($scope) {
+    	$scope.lis=[1,2,3,4];
+    	$scope.a=5;
+    	$scope.cont="#{cont}";
+    }
+  
