@@ -1,0 +1,66 @@
+extends layout
+
+block content
+  h1= title
+  script(src='http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js')
+  div(ng-app='' ng-controller="myController")
+    text Number of Rules: 
+    input(type='number' ng-model='k')
+    text  Max Weight:
+    input(type='number' ng-model='mw')
+    text Weighting Scheme:
+    select(ng-model='W')
+      option(value="Size") Size
+      option(value="Bits") Bits
+      option(value="Square") Square
+      option(value="Min2") Min2
+    br.
+    text Ignore Columns
+    form(ng-repeat="x in cols" name="Ignore")
+      input(type="checkbox" ng-model="ignore[x]") 
+      {{x}}
+    text Force Columns
+    form(ng-repeat="x in cols" name="Force")
+      input(type="checkbox" value="1") 
+      {{x}}
+    table
+      tr(ng-repeat="rule in rules")
+        td 
+          button(ng-click="expand(rule, '')") +
+        td(ng-repeat="val in rule.vals track by $index") 
+          button(ng-if="val=='*'" ng-click="expand(rule, val)") {{val}}
+          div(ng-if="val!='*'") {{val}}
+    button(ng-click="ajaxCall($event)") ajaxCall
+    p {{jso}}      
+  script.
+    function myController($scope, $http) {
+        $scope.cols=[1,2,3,4]; // Take as input.
+        $scope.ignore={};
+        $scope.force={};
+        $scope.k=3;
+        $scope.mw=5;
+        $scope.W='Size';
+        $scope.rules=[{'vals':[]}];
+        for (i in $scope.cols) {
+          $scope.ignore[$scope.cols[i]] = false;
+          $scope.force[$scope.cols[i]] = false;
+          $scope.rules[0]['vals'].push('*');
+        }
+        $scope.expand = function(rule, point) {
+          alert(point)
+        }
+        $scope.cont="#{cont}";
+        $scope.jso='u';
+        $scope.ajaxCall = function(event) {
+          var rp = $http.get("/");
+          rp.success(function(response) {
+            $scope.jso = "hi";
+          });
+          rp.error(function(response) {
+            alert("ajax failed");
+          });
+        }
+        
+        //.success(function(response) {$scope.jso = response;});
+    }
+  
