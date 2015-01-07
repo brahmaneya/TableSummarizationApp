@@ -4,13 +4,24 @@ var sjs = require('shelljs');
 
 /* GET home page. */
 router.post('/', function(req, res) {
-  	var obj = {'1' : '2'};
-	var newRules = [{'vals':[1,'*',3]}, {'vals':[5,6,'*']}];
 	var rowNo = req.body.row + 1;
 	var rules = req.body.rules;
+	console.log(req.body);
 	var selectedRule = rules[rowNo-1];
 	var curDepth = selectedRule.depth;
-	console.log(rules);
+	
+	var commandStr = 'java -jar TableSummarization.jar';
+	commandStr = commandStr + " " + req.body.k;
+	commandStr = commandStr + " " + req.body.mw;
+	commandStr = commandStr + " " + req.body.W;
+	commandStr = commandStr + " " + JSON.stringify(selectedRule.vals);
+	
+	console.log(commandStr);
+	sjs.exec(commandStr, function (code, output) {
+		console.log(output);
+	});
+	
+	var newRules = [{'vals':[1,'*',3]}, {'vals':[5,6,'*']}];
 	if (selectedRule.expanded === 0) {
 		selectedRule.expanded = 1;
 		for (var i in newRules) {

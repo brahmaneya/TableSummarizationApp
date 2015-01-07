@@ -15,40 +15,53 @@ block content
       option(value="Square") Square
       option(value="Min2") Min2
     br.
-    text Ignore Columns
-    form(ng-repeat="x in cols" name="Ignore")
-      input(type="checkbox" ng-model="ignore[x]") 
-      {{x}}
-    text Force Columns
-    form(ng-repeat="x in cols" name="Force")
-      input(type="checkbox" value="1") 
-      {{x}}
     table
+      tr
+        td
+          X
+        td(ng-repeat="opt in colopts")
+          {{opt}}
+      tr(ng-repeat="col in cols")
+        td
+          {{col}}
+        td(ng-repeat="opt in colopts")
+          input(type="radio" ng-model="colopt[col]" name="colopt-{{col}}" value="{{opt}}")
+    br.
+    br.
+    table
+      tr
+        td 
+        td(ng-repeat="col in cols")
+          {{col}}
       tr(ng-repeat="rule in rules")
         td 
           button(ng-click="expand(rule.row, -1)" ng-if="rule.expanded == 0") +
           button(ng-click="expand(rule.row, -1)" ng-if="rule.expanded != 0") -
         td(ng-repeat="val in rule.vals track by $index") 
-          button(ng-if="val=='*'" ng-click="expand(rule.row, $index)") {{val}}
-          div(ng-if="val!='*'") {{val}}
+          //button(ng-if="val=='*'" ng-click="expand(rule.row, $index)") {{val}}
+          //div(ng-if="val!='*'") {{val}}
+          div {{val}}
     {{rules}}      
   script.
     function myController($scope, $http) {
-        $scope.cols=[1,2,3,4]; // Take as input.
+        $scope.cols=['Gender','Marital Status','Age','Education','Occupation','Time in Bay Area','Dual Income','Persons in household','Count','Weight']; // Take as input.
+        $scope.colopts=["Default", "Ignore", "Force"]; 
         $scope.ignore={};
         $scope.force={};
+        $scope.colopt={};
         $scope.k=3;
         $scope.mw=5;
         $scope.W='Size';
         $scope.rules=[{'vals':[], 'row':0, 'depth':0, 'expanded':0}];
         for (i in $scope.cols) {
           $scope.ignore[$scope.cols[i]] = false;
+          $scope.colopt[$scope.cols[i]] = "Default";
           $scope.force[$scope.cols[i]] = false;
           $scope.rules[0]['vals'].push('*');
         }
         $scope.cont="#{cont}";
         $scope.expand = function(row, col) {
-          var rp = $http.post("/expansion", {'k':$scope.k, 'mw':$scope.mw, 'W':$scope.W, 'rules':$scope.rules, 'row':row, 'col':col});
+          var rp = $http.post("/expansion", {'k':$scope.k, 'mw':$scope.mw, 'W':$scope.W, 'rules':$scope.rules, 'row':row, 'col':col, 'colopt':$scope.colopt});
           rp.success(function(response) {
             $scope.rules = response;
           });
