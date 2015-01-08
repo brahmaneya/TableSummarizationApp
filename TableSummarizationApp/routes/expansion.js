@@ -10,39 +10,7 @@ router.post('/', function(req, res) {
 	var selectedRule = rules[rowNo-1];
 	var curDepth = selectedRule.depth;
 	
-	var commandStr = 'java -jar TableSummarization.jar';
-	commandStr = commandStr + " " + req.body.k;
-	commandStr = commandStr + " " + req.body.mw;
-	commandStr = commandStr + " " + req.body.W;
-	commandStr = commandStr + " " + JSON.stringify(selectedRule.vals);
-	
-	console.log(commandStr);
-	sjs.exec(commandStr, function (code, output) {
-		console.log(output);
-	});
-	
-	var newRules = [{'vals':[1,'*',3]}, {'vals':[5,6,'*']}];
-	if (selectedRule.expanded === 0) {
-		selectedRule.expanded = 1;
-		for (var i in newRules) {
-			if (true) {
-				newRules[i].row = rowNo;
-				newRules[i].expanded = 0;
-				newRules[i].depth = curDepth + 1;
-				var depthStr = "";
-				for (var j = 0; j < curDepth + 1; j++) {
-					depthStr = depthStr + ">";
-				}
-				newRules[i].vals[0] = depthStr + newRules[i].vals[0];
-				rules.splice(rowNo, 0, newRules[i]);
-				rowNo++;
-			}
-		}
-		while (rowNo < rules.length) {
-			rules[rowNo].row = rowNo;
-			rowNo++;
-		}		
-	} else {
+	if (selectedRule.expanded === 1) {
 		selectedRule.expanded = 0;
 		while (rowNo < rules.length && rules[rowNo].depth > curDepth) {
 			rules.splice(rowNo, 1);
@@ -50,9 +18,40 @@ router.post('/', function(req, res) {
 		while (rowNo < rules.length) {
 			rules[rowNo].row = rowNo;
 			rowNo++;
-		}		
+		}				
+	  	res.json(rules);
+	} else {
+		var commandStr = 'java -jar TableSummarization.jar';
+		commandStr = commandStr + " " + req.body.k;
+		commandStr = commandStr + " " + req.body.mw;
+		commandStr = commandStr + " " + req.body.W;
+		commandStr = commandStr + " " + JSON.stringify(selectedRule.vals);
+		commandStr = commandStr + " " + JSON.stringify(req.body.colopt);
+		
+		sjs.exec(commandStr, function (code, output) {
+			var newRules = JSON.parse(output);
+			selectedRule.expanded = 1;
+			for (var i in newRules) {
+				if (true) {
+					newRules[i].row = rowNo;
+					newRules[i].expanded = 0;
+					newRules[i].depth = curDepth + 1;
+					var depthStr = "";
+					for (var j = 0; j < curDepth + 1; j++) {
+						depthStr = depthStr + ">";
+					}
+					newRules[i].depthStr = depthStr;
+					rules.splice(rowNo, 0, newRules[i]);
+					rowNo++;
+				}
+			}
+			while (rowNo < rules.length) {
+				rules[rowNo].row = rowNo;
+				rowNo++;
+			}		
+		  	res.json(rules);
+		});
 	}
-  	res.json(rules);
 });
 
 module.exports = router;

@@ -31,20 +31,23 @@ block content
     table
       tr
         td 
+        td
         td(ng-repeat="col in cols")
           {{col}}
+        td Count
+        td Weight
       tr(ng-repeat="rule in rules")
         td 
           button(ng-click="expand(rule.row, -1)" ng-if="rule.expanded == 0") +
           button(ng-click="expand(rule.row, -1)" ng-if="rule.expanded != 0") -
+        td {{rule.depthStr}}
         td(ng-repeat="val in rule.vals track by $index") 
           //button(ng-if="val=='*'" ng-click="expand(rule.row, $index)") {{val}}
           //div(ng-if="val!='*'") {{val}}
           div {{val}}
-    {{rules}}      
   script.
     function myController($scope, $http) {
-        $scope.cols=['Gender','Marital Status','Age','Education','Occupation','Time in Bay Area','Dual Income','Persons in household','Count','Weight']; // Take as input.
+        $scope.cols=['Gender','Marital Status','Age','Education','Occupation','Time in Bay Area','Dual Income?','Persons in household']; // Take as input.
         $scope.colopts=["Default", "Ignore", "Force"]; 
         $scope.ignore={};
         $scope.force={};
@@ -52,7 +55,7 @@ block content
         $scope.k=3;
         $scope.mw=5;
         $scope.W='Size';
-        $scope.rules=[{'vals':[], 'row':0, 'depth':0, 'expanded':0}];
+        $scope.rules=[{'depthStr':'','vals':[], 'row':0, 'depth':0, 'expanded':0}];
         for (i in $scope.cols) {
           $scope.ignore[$scope.cols[i]] = false;
           $scope.colopt[$scope.cols[i]] = "Default";
