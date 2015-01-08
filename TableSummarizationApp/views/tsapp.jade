@@ -2,33 +2,38 @@ extends layout
 
 block content
   h1= title
+  link(rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
   script(src='http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js')
-  div(ng-app='' ng-controller="myController")
-    text Number of Rules: 
-    input(type='number' ng-model='k')
-    text  Max Weight:
-    input(type='number' ng-model='mw')
-    text Weighting Scheme:
-    select(ng-model='W')
-      option(value="Size") Size
-      option(value="Bits") Bits
-      option(value="Square") Square
-      option(value="Min2") Min2
+  div(class="container" ng-app='' ng-controller="myController")
+    div(class="form-group")
+      label Number of Rules: 
+      input(type='number' name'k' class="form-control" ng-model='k')
+    div(class="form-group")
+      label Max Weight:
+      input(type='number' class="form-control" ng-model='mw')
+    div(class="form-group")
+      label(for="sel1") Weighting Scheme:
+      select(class="form-control" ng-model='W')
+        option(value="Size") Size
+        option(value="Bits") Bits
+        option(value="Square") Square
+        option(value="Min2") Min2   
     br.
-    table
-      tr
-        td
-          X
-        td(ng-repeat="opt in colopts")
-          {{opt}}
-      tr(ng-repeat="col in cols")
-        td
-          {{col}}
-        td(ng-repeat="opt in colopts")
-          input(type="radio" ng-model="colopt[col]" name="colopt-{{col}}" value="{{opt}}")
+    table(class="table table-striped")
+      thead
+        tr
+          td
+          td(ng-repeat="opt in colopts")
+            {{opt}}
+      tbody      
+        tr(ng-repeat="col in cols")
+          td
+            {{col}}
+          td(ng-repeat="opt in colopts")
+            input(type="radio" ng-model="colopt[col]" name="colopt-{{col}}" value="{{opt}}")
     br.
     br.
-    table
+    table(class="table table-striped")
       tr
         td 
         td
@@ -38,8 +43,8 @@ block content
         td Weight
       tr(ng-repeat="rule in rules")
         td 
-          button(ng-click="expand(rule.row, -1)" ng-if="rule.expanded == 0") +
-          button(ng-click="expand(rule.row, -1)" ng-if="rule.expanded != 0") -
+          button(class="btn" ng-click="expand(rule.row, -1)" ng-if="rule.expanded == 0") +
+          button(class="btn" ng-click="expand(rule.row, -1)" ng-if="rule.expanded != 0") -
         td {{rule.depthStr}}
         td(ng-repeat="val in rule.vals track by $index") 
           //button(ng-if="val=='*'" ng-click="expand(rule.row, $index)") {{val}}
@@ -69,7 +74,7 @@ block content
             $scope.rules = response;
           });
           rp.error(function(response) {
-            alert("ajax failed");
+            alert("AJAX failed");
           });
         }
     }

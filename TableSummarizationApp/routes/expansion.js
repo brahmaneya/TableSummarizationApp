@@ -22,8 +22,16 @@ router.post('/', function(req, res) {
 	  	res.json(rules);
 	} else {
 		var commandStr = 'java -jar TableSummarization.jar';
-		commandStr = commandStr + " " + req.body.k;
-		commandStr = commandStr + " " + req.body.mw;
+		if(req.body.k) {
+			commandStr = commandStr + " " + req.body.k;			
+		} else {
+			return;
+		}
+		if(req.body.mw) {
+			commandStr = commandStr + " " + req.body.mw;			
+		} else {
+			return;
+		}
 		commandStr = commandStr + " " + req.body.W;
 		commandStr = commandStr + " " + JSON.stringify(selectedRule.vals);
 		commandStr = commandStr + " " + JSON.stringify(req.body.colopt);
