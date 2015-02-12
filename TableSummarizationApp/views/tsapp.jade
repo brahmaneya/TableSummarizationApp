@@ -38,21 +38,25 @@ block content
         td 
         td
         td(ng-repeat="col in cols")
-          {{col}}
-        td Count
-        td Weight
+           font(size="5") {{col}}
+        td 
+          font(size="5") Count
+        td 
+          font(size="5") Weight
       tr(ng-repeat="rule in rules")
         td 
           button(class="btn" ng-click="expand(rule.row, -1)" ng-if="rule.expanded == 0") +
           button(class="btn" ng-click="expand(rule.row, -1)" ng-if="rule.expanded != 0") -
-        td {{rule.depthStr}}
+        td 
+          font(size="4") {{rule.depthStr}}
         td(ng-repeat="val in rule.vals track by $index") 
           //button(ng-if="val=='*'" ng-click="expand(rule.row, $index)") {{val}}
           //div(ng-if="val!='*'") {{val}}
-          div {{val}}
+          div 
+            font(size="6") {{val}}
   script.
     function myController($scope, $http) {
-        $scope.cols=['Gender','Marital Status','Age','Education','Occupation','Time in Bay Area','Dual Income?','Persons in household']; // Take as input.
+        $scope.cols=['Gender','Marital Status','Age','Education','Occupation','Time in Bay Area'];//,'Dual Income?','Persons in household']; // Take as input.
         $scope.colopts=["Default", "Ignore", "Force"]; 
         $scope.ignore={};
         $scope.force={};
@@ -67,6 +71,8 @@ block content
           $scope.force[$scope.cols[i]] = false;
           $scope.rules[0]['vals'].push('*');
         }
+        $scope.rules[0]['vals'].push(8993);
+        $scope.rules[0]['vals'].push(0);
         $scope.cont="#{cont}";
         $scope.expand = function(row, col) {
           var rp = $http.post("/expansion", {'k':$scope.k, 'mw':$scope.mw, 'W':$scope.W, 'rules':$scope.rules, 'row':row, 'col':col, 'colopt':$scope.colopt});

@@ -23,7 +23,7 @@ router.post('/', function(req, res) {
 	} else {
 		var commandStr = 'java -jar TableSummarization.jar';
 		if(req.body.k) {
-			commandStr = commandStr + " " + req.body.k;			
+			commandStr = commandStr + " " + req.body.k;
 		} else {
 			return;
 		}
