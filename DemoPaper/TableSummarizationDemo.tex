@@ -97,8 +97,8 @@ Aditya Parameswaran\\
 \maketitle
 
 \begin{abstract}
-We present {\em smart drill-down},
-an operator for interactively exploring a relational table
+We present a data exploration system equipped with {\em smart drill-down},
+a novel operator for interactively exploring a relational table
 to discover and summarize ``interesting'' groups of tuples.
 Each group of tuples is described by a {\em rule}.
 For instance, the rule $(a, b, \star, 1000)$ tells us that
@@ -108,11 +108,7 @@ Smart drill-down presents an analyst with a list of rules that
 together describe interesting aspects of the table.
 The analyst can tailor the definition of interesting,
 and can interactively apply smart drill-down on an existing rule to
-explore that part of the table.
-We demonstrate that the underlying optimization problems 
-are {\sc NP-Hard}, and describe an
-algorithm for finding the approximately optimal list of rules to display when the user uses a smart drill-down, and a dynamic sampling scheme for efficiently interacting with large tables. Finally, we
-perform experiments on real datasets on our experimental prototype to demonstrate the usefulness of smart drill-down and study the performance of our algorithms.
+explore that part of the table. The problems underlying smart drill-down are {\sc NP-Hard}, so our system uses an approximation algorithm for choosing the best list of rules to display. In addition, our system uses a dynamic sampling and memory management scheme to achieve low response times while interacting with large tables.
 \end{abstract}
 
 \input{intro}
