@@ -73,7 +73,7 @@
 
 \begin{document}
 
-\title{Smart Drill-Down}
+\title{Demo: Smart Drill-Down}
 \numberofauthors{3} 
 \author{
 \alignauthor
@@ -100,7 +100,7 @@ Aditya Parameswaran\\
 We present a data exploration system equipped with {\em smart drill-down},
 a novel operator for interactively exploring a relational table
 to discover and summarize ``interesting'' groups of tuples.
-Each group of tuples is described by a {\em rule}.
+The summary consists of a set of {\em rules}, where each rule describes a group of tuples.
 For instance, the rule $(a, b, \star, 1000)$ tells us that
 there are a thousand tuples with value $a$ in the first column and $b$
 in the second column (and any value in the third column).
@@ -115,7 +115,7 @@ explore that part of the table. The problems underlying smart drill-down are {\s
 
 \input{formal}
 
-\input{summary}
+\input{system}
 
 \input{overview}
 %to add: summary of contributions (phrase as 'implemented' not as 'in this paper')

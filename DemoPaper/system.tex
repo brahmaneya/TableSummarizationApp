@@ -1,0 +1,38 @@
+%!TEX root = TableSummarizationDemo.tex
+
+\section{System Overview}\label{sec:system}
+
+\begin{figure}
+\vspace{-5pt}
+\centering
+\includegraphics[width=80mm]{graphs/SmartDrillDownSystem.pdf}
+\vspace{-20pt}
+\caption{The web interface of our system \label{fig:system}}
+\vspace{-15pt}
+\end{figure}
+
+Our system consists of three main components (shown in Figure~\ref{fig:system}). The `Rule Finder' determines what rules to display to a user based on the user's latest interaction, the values of parameters such as number $k$ of rules to display, weighting function $W$ to use, and so on. 
+
+In order to do this, the Rule Finder has to make a pass through the table data several times. This can be expensive for big tables, so we dynamically maintain multiple samples of different parts of the table in memory instead. The `Sample Handler' is responsible for maintaining samples in memory and updating them when required. 
+
+The third component is a `Web User Interface' which allows users to explore a dataset using smart drill-down on a web browser. We now describe the components one by one.
+
+The Rule Finder's problem, of choosing the optimal rule list of a given size, is NP-Hard. However, we find an approximately optimal solution as follows: We first notice that given a set of rules, a rule-list consisting of those rules has the highest score if the rules are sorted in decreasing order by weight. So we can define the score of a rule {\em set} to be the score of the rule-list obtained by ordering rules of the set in decreasing order by weight. Thus our problem reduces to that of finding the highest scoring rule set. As long as the weight function is monotonic, the score of a rule-set can be shown to be submodular. Then we use the fact that a submodular function can be optimized using a greedy algorithm to choose rules one at a time in a greedy manner until we have $k$ rules. We call the above algorithm BRS (which stands for {\bf B}est {\bf R}ule {\bf S}et). Additional details on our approximation algorithm can be found in our technical report~\cite{tr}. 
+
+The second component of our system, the `SampleHandler' takes two user-specified input parameters to begin with: the memory capacity $M$, and a parameter called $minSS$. $minSS$ determines the sample size required to run the BRS algorithm. Higher values of $minSS$ increase processing time (since the algorithm has to process a larger amount of data) but also increase the accuracy of the resulting displayed rule-list and rule counts. Then, it maintains a set of samples in memory, such that the sum of sizes of the samples never exceeds $M$. Each sample is a uniformly random subset of tuples that are covered by some rule $r'$. When the user attempts to drill-down on a rule $r$, the SampleHandler appropriately combines tuples from various existing samples to produce a set of $\geq minSS$ tuples covered by $r$. If it can't, it needs to make a pass over the table to generate a new sample. In that case, it determines a new set of samples to create, to maximise the probability that the next user click can be responded using those samples. Then it makes a pass through the table to create the new samples. 
+
+\begin{figure*}[ht]
+\vspace{-5pt}
+\centering
+\includegraphics[width=160mm,frame]{graphs/tsapp_screenshot.jpg}
+\vspace{-5pt}
+\caption{The web interface of our system \label{fig:interface}}
+\vspace{-5pt}
+\end{figure*}
+
+The third component is the User Interface, shown in Figure~\ref{fig:interface}.
+At the top, users can set the number of new rules to display in response to every smart drill-down. The second setting is a parameter called max weight, which trades off the accuracy of the displayed rule list for processing time. Briefly, our system only considers displaying rules that have weight less than or equal to the max weight. As long as the weight of all rules in the optimal rule-list is less than this parameter, our system displays the optimal rule-list. We observe that a value of around $5$ works well for the Size weighting function. Weighting functions with higher weight values need a higher value for this parameter. 
+
+The third parameter that can be set is the weighting function. In general, our approximation algorithm works for any monotonic weighting function. But for ease of use of the web interface, we have hardcoded a few different weighting functions, that can be selected using the drop-down list in the interface. Below the drop down menu, the interface displays the set of columns of the database table being explored. Each column has three options: `Default', `Ignore', and `Force'. Choosing the Ignore option causes the column to be ignored, (so the weight given to a rule with a value in that column is set to that of a rule with a $\star$ value in that column). Choosing the Force option forces every displayed rule to have a non-$\star$ value in that column. This is especially useful for tables with a large number of columns, where the user may only be interested in some of the columns. 
+
+Finally, the actual interactive table summary is displayed below. The plus and minus buttons before the rules can be used to drill-down and reverse previous drill-downs. For instance, in the figure, the user has performed a single drill down using the Size weighting function (which sets weight to the number of non-star values of a rule), and choosing the Force option for the Occupation column, and Ignore for Gender and Time in Bay Area columns. As a result, the displayed rule-list (the three rules below the first one) all have a non-$\star$ value in the Occupation column, and only $\star$ values in the Gender and Time in Bay Area columns. Notice how the rules also have non-$\star$ values in some columns other than occupation, in constrast to traditional drill down.
