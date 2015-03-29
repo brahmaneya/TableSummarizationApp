@@ -16,7 +16,7 @@ the results can easily overwhelm analysts by presenting them with too many
 values. Furthermore, drill down only allows us to explore one column at a time, instead of allowing simultaneous drill downs
 on multiple columns--- moreover, simultaneously drilling down on multiple columns 
 is likely to again suffer from the problem
-of having too many results, ue to having too many distinct combinations of column values.
+of having too many results, due to having too many distinct combinations of column values.
 
 In this demonstration, we present a new interaction operator called {\em smart drill down}, that is an extension to a traditional 
 drill down operator, aimed at providing {\em complementary}
@@ -142,7 +142,6 @@ the regions CA-1 and WA-5.
 
 When the analyst clicks on a rule $r$, smart drill down
 expands $r$ into $k$ sub-rules that as a set are deemed to be ``interesting.''
-(We discuss other smart drill down operations in Section~\ref{sec:interface}.)
 There are three factors that make a rule set interesting.
 One is if it contains rules with high Count (or total sales) fields,
 since the larger the count, the more tuples are summarized.
@@ -215,5 +214,6 @@ maintaining samples in memory to support smart drill down.
 Optimal identification of samples is once again {\sc NP-Hard}, so 
 we use an approximate scheme for dynamically maintaining and using multiple samples of the table in memory.
 \squishend
+The algorithms used for finding rules to display, and for sample maintainance can be found in our online technical report~\cite{tr}.
 
 We formally describe our problem in Section~\ref{sec:formal}. Then in Section~\ref{sec:system}, we describe the components of our system. Finally in Section~\ref{sec:demo}, we outline the demo scenario and describe how users can interact with our system. 
