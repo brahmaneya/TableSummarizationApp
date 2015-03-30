@@ -2,24 +2,24 @@
 
 \section{Formal Description} \label{sec:formal} 
 
-Our system first takes as input a relational table, which we call $\calD$. 
-For the purpose of the rest of the discussion, we will operate on this
-table $\calD$. We let $T$ denote the set of tuples in $\calD$, and $C$ denote 
+\stitle{Tables and Rules.} Our system first takes as input a relational table, which we call $\calD$. 
+% For the purpose of the rest of the discussion, we will operate on this
+% table $\calD$. 
+We let $T$ denote the set of tuples in $\calD$, and $C$ denote 
 the set of columns in $\calD$.
-
 Our objective is to 
 enable smart drill downs on this table or on portions of it:
 the result of our drill downs are lists of {\em rules}. 
 A {\em rule} is a tuple with a value for each column of the table. 
 In addition, a rule has other attributes, such as count and weight associated with it. 
-The value in each column of the rule can either be one of the values in the corresponding column of the table, or $\star$, representing a wildcard character representing all values in the column. A rule $r$ is said to {\em cover} a tuple $t$ from the table if all non-$\star$ values for all columns of the rule match the corresponding values in the tuple. The {\em Count} of a rule is the number of tuples covered by that rule. 
+The value in each column of the rule can either be one of the values in the corresponding column of the table, or $\star$, representing a wild-card character representing all values in the column. A rule $r$ is said to {\em cover} a tuple $t$ from the table if all non-$\star$ values for all columns of the rule match the corresponding values in the tuple. The {\em Count} of a rule is the number of tuples covered by that rule. 
 
-A {\em rule-list} is an ordered list of rules returned by our system in response to a smart drill down operation. 
+\stitle{Rule Lists.} A {\em rule-list} is an ordered list of rules returned by our system in response to a smart drill down operation. 
 When a user drills down on a rule $r$ to know more about the part of the table covered by $r$, we display a new rule-list below $r$.
 For instance, the second, third and fourth rule from Table~\ref{table:introexample} form a rule-list, which is displayed when the user clicks on the first (trivial) rule. Similarly, the second, third and fourth rules in Table~\ref{table:introexample2} form a rule-list, as do the fifth, sixth and seventh rules. We now define some additional properties of rules; these properties
 help us ``score'' individual rules as part of a rule-list. 
 
-There are two portions that constitute our scores for a rule as part of a rule list. 
+\stitle{Scoring.} There are two portions that constitute our scores for a rule as part of a rule list. 
 The first portion dictates how much the rule $r$ ``covers'' the tuples in $\calD$;
 the second portion dictates how ``good'' the rule $r$ is (independent of how many
 tuples it covers). 
@@ -32,10 +32,12 @@ We define {\em MCount}($r, R$) (which stands for `Marginal Count') as the number
 
 Now, onto the second portion: we let $W$ denote a function that assigns a non-negative {\em weight} to a rule based on how good the rule is, with higher weights assigned to better rules. 
 As we will see, the weighting function does not depend on the specific
-tuples in $\calD$, but could, as we will see later, 
+tuples in $\calD$, but could 
 depend on the number of $\star$s in $r$,
 the schema of $\calD$, 
-as well as the number of distinct values in each column of $\calD$.
+as well as the number of distinct values in each column of $\calD$. The full description of the weighting functions
+can be found in~\cite{tr} --- we will allow conference attendees to see the impact of various weighting functions
+in the demonstration.
 A weighting function is said to be {\em monotonic} if for all rules $r_1$, $r_2$ such that $r_1$ is a sub-rule of $r_2$, we have $W(r_1) \leq W(r_2)$; we focus
 on monotonic weighting functions because we prefer 
 rules that are more ``specific''
