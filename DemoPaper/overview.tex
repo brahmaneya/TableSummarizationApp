@@ -1,9 +1,10 @@
 %!TEX root = TableSummarizationDemo.tex
 
 \section{Demo Overview} \label{sec:demo} 
-In our demo, we will show our prototype implementation of a system equipped with smart drill-down. We have included two datasets, a marketing survey, and the US Census, which users can explore using smart drill-down. We will have some canned exploration scenarios where we demonstrate how smart drill down lets one discover interesting information about a table efficiently. These scenarios will highlight the advantage of smart drill down compared with traditional drill down. 
+In our demo, we will show our prototype implementation of a system equipped with smart drill-down. We have included two datasets, a marketing survey, and the US Census, which users can explore using smart drill-down. We will have three demonstration scenarios:
 
-The users will also be able to explore the sample tables on their own. They will be able to change parameters in the user interface, to observe their practical impact. For instance, they will be able to try out different values of max weight parameter, and see how larger values increase computation time, while extremely small values can cause an un-optimal srule list to be displayed. They will be able to try out different weighting functions, and column parameters, to explore different parts of the table. For instance, using the bits weighting function will cause the system to focus on columns with a large number of distinct values. 
-
-Finally, we will also let the users try instances of the system with different values of the $M$ and $minSS$ parameters to observe their effects. 
-
+\squishlist
+\item {\bf Comparison to drill-down}: We will have some canned exploration scenarios where we demonstrate how smart drill down lets one discover interesting information about a table efficiently. These scenarios will highlight the advantage of smart drill down compared with traditional drill down. 
+\item {\bf Rule Finder Parameters}: We will allow the user to vary parameters shown in the user interface, and observe their effects on the rules displayed, as well as the response time and accuracy. For instance, using smaller values for max weight will speed up the response, but a very small value will result in the user seeing an unoptimal table summary. Using a different weighting function, such as `Bits' will prioritize columns with a larger number of distinct values.
+\item {\bf Sample Handler Parameters}: We will allow users to try out instances of the system with different values of $minSS$ and let them observe the resulting effects on response time and accuracy.
+\squishend
