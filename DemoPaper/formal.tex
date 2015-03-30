@@ -12,7 +12,7 @@ enable smart drill downs on this table or on portions of it:
 the result of our drill downs are lists of {\em rules}. 
 A {\em rule} is a tuple with a value for each column of the table. 
 In addition, a rule has other attributes, such as count and weight associated with it. 
-The value in each column of the rule can either be one of the values in the corresponding column of the table, or $\star$, representing a wild-card character representing all values in the column. A rule $r$ is said to {\em cover} a tuple $t$ from the table if all non-$\star$ values for all columns of the rule match the corresponding values in the tuple. The {\em Count} of a rule is the number of tuples covered by that rule. 
+The value in each column of the rule can either be one of the values in the corresponding column of the table, or $\star$, representing a wild-card character representing all values in the column. A rule $r$ is said to {\em cover} a tuple $t$ from the table if all non-$\star$ values for all columns of the rule match the corresponding values in the tuple.Rule $r$ is a super-rule of $r'$ if for every non-$\star$ value in $r'$, $r$ has the same value in the same column. The {\em Count} of a rule is the number of tuples covered by that rule. 
 
 \stitle{Rule Lists.} A {\em rule-list} is an ordered list of rules returned by our system in response to a smart drill down operation. 
 When a user drills down on a rule $r$ to know more about the part of the table covered by $r$, we display a new rule-list below $r$.
@@ -55,9 +55,5 @@ Our smart drill downs still display the Count of each rule rather than the $MCou
 \begin{problem}\label{prob:optimal-subrule-list}
 Given a table $T$, a monotonic weighting function $W$, and a number $k$, find the list $R$ of $k$ rules that maximizes 
 $$\sum_{r \in R} W(r) \times MCount(r,R)$$
-for one of the following smart drill down operations:
-\begin{denselist}
-\item $[$Rule drill down$]$ If the user clicked on a rule $r^{\prime}$, then all $r \in R$ must be super-rules of $r^{\prime}$
-\item $[$Star drill down$]$ If the user clicked on a $\star$ on column $c$ of rule $r^{\prime}$, then all $r \in R$ must be super-rules of $r^{\prime}$ and have a non-$\star$ value in column $c$
-\end{denselist}
+such that each rule $r \in R$ is a super-rule of the rule the user clicked on.
 \end{problem}
