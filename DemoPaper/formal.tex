@@ -8,15 +8,15 @@
 We let $T$ denote the set of tuples in $\calD$, and $C$ denote 
 the set of columns in $\calD$.
 Our objective is to 
-enable smart drill downs on this table or on portions of it:
-the result of our drill downs are lists of {\em rules}. 
+enable smart drill-downs on this table or on portions of it:
+the result of our drill-downs are lists of {\em rules}. 
 A {\em rule} is a tuple with a value for each column of the table. 
 In addition, a rule has other attributes, such as count and weight associated with it. 
-The value in each column of the rule can either be one of the values in the corresponding column of the table, or $\star$, representing a wild-card character representing all values in the column. A rule $r$ is said to {\em cover} a tuple $t$ from the table if all non-$\star$ values for all columns of the rule match the corresponding values in the tuple.Rule $r$ is a super-rule of $r'$ if for every non-$\star$ value in $r'$, $r$ has the same value in the same column. The {\em Count} of a rule is the number of tuples covered by that rule. 
+The value in each column of the rule can either be one of the values in the corresponding column of the table, or $\star$, representing a wild-card character representing all values in the column. A rule $r$ is said to {\em cover} a tuple $t$ from the table if all non-$\star$ values for all columns of the rule match the corresponding values in the tuple. Rule $r$ is a super-rule of $r'$ if for every non-$\star$ value in $r'$, $r$ has the same value in the same column. The {\em Count} of a rule is the number of tuples covered by that rule. 
 
-\stitle{Rule Lists.} A {\em rule-list} is an ordered list of rules returned by our system in response to a smart drill down operation. 
+\stitle{Rule Lists.} A {\em rule-list} is an ordered list of rules returned by our system in response to a smart drill-down operation. 
 When a user drills down on a rule $r$ to know more about the part of the table covered by $r$, we display a new rule-list below $r$.
-For instance, the second, third and fourth rule from Table~\ref{table:introexample} form a rule-list, which is displayed when the user clicks on the first (trivial) rule. Similarly, the second, third and fourth rules in Table~\ref{table:introexample2} form a rule-list, as do the fifth, sixth and seventh rules. We now define some additional properties of rules; these properties
+For instance, the second, third and fourth rule from Table~\ref{table:introexample} form a rule-list, which is displayed when the user clicks on the first rule. Similarly, the second, third and fourth rules in Table~\ref{table:introexample2} form a rule-list, as do the fifth, sixth and seventh rules. We now define some additional properties of rules; these properties
 help us ``score'' individual rules as part of a rule-list. 
 
 \stitle{Scoring.} There are two portions that constitute our scores for a rule as part of a rule list. 
@@ -38,7 +38,7 @@ the schema of $\calD$,
 as well as the number of distinct values in each column of $\calD$. The full description of the weighting functions
 can be found in~\cite{tr} --- we will allow conference attendees to see the impact of various weighting functions
 in the demonstration.
-A weighting function is said to be {\em monotonic} if for all rules $r_1$, $r_2$ such that $r_1$ is a sub-rule of $r_2$, we have $W(r_1) \leq W(r_2)$; we focus
+A weighting function is said to be {\em monotonic} if for all rules $r_1$, $r_2$ such that $r_2$ is a super-rule of $r_1$, we have $W(r_1) \leq W(r_2)$; we focus
 on monotonic weighting functions because we prefer 
 rules that are more ``specific''
 rather than those that are more ``general'' 
@@ -48,7 +48,7 @@ Thus, the total score for our list of rules is given by
 $$\text{Score}(R) = \sum_{r \in R} \underbrace{MCount(r, R)}_{\text{coverage of $r$ in $\calD$}} \times \underbrace{W(r)}_{\text{weight of $r$}}$$ 
 Overall, our goal is to choose the rule-list maximizing 
 total score. 
-Our smart drill downs still display the Count of each rule rather than the $MCount$. This is because while $MCount$ is useful in the rule selection process, Count is easier for a user to interpret. In any case, it would be a simple extension to display MCount in another column.
+Our smart drill-downs still display the Count of each rule rather than the $MCount$. This is because while $MCount$ is useful in the rule selection process, Count is easier for a user to interpret. In any case, it would be a simple extension to display MCount in another column.
 
 \stitle{Formal Problem:} We now formally define our problem:
 \begin{problem}\label{prob:optimal-subrule-list}
