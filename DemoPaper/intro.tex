@@ -8,7 +8,8 @@ such as drill down~\cite{export:69578} to explore
 relational databases. 
 These operations are very useful for analytics and data exploration and have stood the test of time;
 all commercial OLAP systems 
-in existence support these operations. (Recent reports estimate the size of the OLAP market to be \$10+ Billion~\cite{gartner}.)
+in existence support these operations.
+%(Recent reports estimate the size of the OLAP market to be \$10+ Billion~\cite{gartner}.)
 
 But there are several cases where drill down is ineffective; 
 for instance, when the column being drilled down on has a large number of distinct values,
@@ -105,7 +106,7 @@ $\triangleright$ Walmart & $\star$ & $\star$ & $1000$ & $1$ \\ \hline
 \end{tabular}
 \vspace{-10pt}
 \caption{Result after first smart drill down}\label{table:introexample}
-\vspace{-10pt}
+\vspace{-15pt}
 \end{table}
 
 \begin{table}
@@ -125,7 +126,7 @@ $\triangleright$ $\triangleright$ Walmart & $\star$ & WA-5 & $130$ & $2$ \\ \hli
 \end{tabular}
 \vspace{-10pt}
 \caption{Result after second smart drill down} \label{table:introexample2}
-\vspace{-10pt}
+\vspace{-15pt}
 \end{table}
 
 Say that after seeing the results of Table~\ref{table:introexample},
@@ -216,7 +217,7 @@ Optimal identification of samples is once again {\sc NP-Hard}, so
 we use an approximate scheme for dynamically maintaining and using multiple samples of the table in memory.
 \squishend
 The algorithms used for finding rules to display, and for sample maintenance can be found in our 
-extended companion technical report~\cite{tr}.
+companion technical report~\cite{tr}.
 
 We formally describe our 
 problem in Section~\ref{sec:formal}. 
