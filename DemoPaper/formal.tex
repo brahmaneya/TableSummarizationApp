@@ -48,12 +48,11 @@ Thus, the total score for our list of rules is given by
 $$\text{Score}(R) = \sum_{r \in R} \underbrace{MCount(r, R)}_{\text{coverage of $r$ in $\calD$}} \times \underbrace{W(r)}_{\text{weight of $r$}}$$ 
 Overall, our goal is to choose the rule-list maximizing 
 total score. 
-
 Our smart drill downs still display the Count of each rule rather than the $MCount$. This is because while $MCount$ is useful in the rule selection process, Count is easier for a user to interpret. In any case, it would be a simple extension to display MCount in another column.
 
 \stitle{Formal Problem:} We now formally define our problem:
 \begin{problem}\label{prob:optimal-subrule-list}
-Given a table $T$, a monotonic weighting function $W$, and a number $k$, find the list $R$ of $k$ rules that maximizes 
-$$\sum_{r \in R} W(r) \times MCount(r,R)$$
-such that each rule $r \in R$ is a super-rule of the rule the user clicked on.
+Given a table $T$, a monotonic weighting function $W$, and a number $k$, find the list $R$ of $k$ rules maximizing $\text{Score}(R)$
+%$$\sum_{r \in R} W(r) \times MCount(r,R)$$
+such that each rule $r \in R$ is a super-rule of the user-clicked rule.
 \end{problem}

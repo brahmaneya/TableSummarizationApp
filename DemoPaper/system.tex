@@ -6,7 +6,7 @@
 \vspace{-5pt}
 \centering
 \includegraphics[width=80mm]{graphs/arch.pdf}
-\vspace{-10pt}
+\vspace{-20pt}
 \caption{The architecture our system \label{fig:system}}
 \vspace{-15pt}
 \end{figure}
@@ -64,4 +64,3 @@ parameter, our system displays the optimal rule-list, so there is no impact on t
 Below the drop down menu, the interface displays the set of columns of the database table being explored. Each column has three options: `Default', `Ignore', and `Force'. Choosing the Ignore option causes the column to be ignored, (so the weight given to a rule with a value in that column is set to that of a rule with a $\star$ value in that column). Choosing the Force option forces every displayed rule to have a non-$\star$ value in that column. This is especially useful for tables with a large number of columns, where the user may only be interested in some of the columns. 
 
 Finally, the actual interactive table summary is displayed in Figure~\ref{fig:results}. The plus and minus buttons before the rules can be used to drill-down and reverse previous drill-downs. For instance, in the figure, the user has performed a single drill down using the Size weighting function (which sets weight to the number of non-star values of a rule), and choosing the Force option for the Occupation column, and Ignore for Gender and Time in Bay Area columns. As a result, the displayed rule-list (the three rules below the first one) all have a non-$\star$ value in the Occupation column, and only $\star$ values in the Gender and Time in Bay Area columns. Notice how the rules also have non-$\star$ values in some columns other than occupation, in contrast to traditional drill down.
-
