@@ -21,7 +21,7 @@ router.post('/', function(req, res) {
 		}				
 	  	res.json(rules);
 	} else {
-		var commandStr = 'java -jar TableSummarization.jar';
+		var commandStr = '/Library/Java/JavaVirtualMachines/jdk1.7.0_79.jdk/Contents/Home/bin/java -jar TableSummarization.jar';
 		if(req.body.k) {
 			commandStr = commandStr + " " + req.body.k;
 		} else {
