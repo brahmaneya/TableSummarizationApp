@@ -26,14 +26,14 @@ ineffective. Smart drill-down makes it possible for analysts to zoom into
 the more ``interesting'' parts of a table or a database,
 with fewer operations, and without having to examine as much
 data as traditional drill-down.
-Note that our goal is {\em not} to replace traditional 
+Our goal is {\em not} to replace traditional 
 drill-down functionality, which we believe is fundamental;
 instead, our goal is to provide auxiliary functionality 
 which analysts are free to use whenever they find 
 traditional drill-downs ineffective.
 
-In addition to this new operator called smart drill-down, our system implements novel sampling techniques to compute the results for this
-operator {\em in an interactive fashion} on increasingly larger databases. 
+In addition to the smart drill-down operator, our system implements novel sampling techniques to compute the results for this
+operator {\em in an interactive fashion} on large databases. 
 Unlike the traditional OLAP setting, these computations 
 require no pre-materialization, and can be implemented 
 within or on top of any relational database system.
@@ -89,7 +89,7 @@ $\star$ & $\star$ & $\star$ & $6000$ & $0$ \\ \hline
 \end{tabular}
 \vspace{-10pt}
 \caption{Initial summary}\label{table:introexample0}
-\vspace{-5pt}
+\vspace{-15pt}
 \end{table}
 
 \begin{table}
@@ -105,7 +105,7 @@ $\triangleright$ Walmart & $\star$ & $\star$ & $1000$ & $1$ \\ \hline
 \end{tabular}
 \vspace{-10pt}
 \caption{Result after first smart drill-down}\label{table:introexample}
-\vspace{-15pt}
+\vspace{-5pt}
 \end{table}
 
 \begin{table}

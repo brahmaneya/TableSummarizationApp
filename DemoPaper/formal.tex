@@ -31,18 +31,16 @@ We now describe the first portion:
 We define {\em MCount}($r, R$) (which stands for `Marginal Count') as the number of tuples covered by $r$ but not by any rule before $r$ in the rule-list $R$. A high value of $MCount$ indicates that the rule not only covers a lot of tuples, but also covers parts of the table not covered by previous rules. 
 
 Now, onto the second portion: we let $W$ denote a function that assigns a non-negative {\em weight} to a rule based on how good the rule is, with higher weights assigned to better rules. 
-As we will see, the weighting function does not depend on the specific
+The weighting function does not depend on the specific
 tuples in $\calD$, but could 
 depend on the number of $\star$s in $r$,
 the schema of $\calD$, 
 as well as the number of distinct values in each column of $\calD$. The full description of the weighting functions
-can be found in~\cite{tr} --- we will allow conference attendees to see the impact of various weighting functions
-in the demonstration.
+can be found in~\cite{tr}.
 A weighting function is said to be {\em monotonic} if for all rules $r_1$, $r_2$ such that $r_2$ is a super-rule of $r_1$, we have $W(r_1) \leq W(r_2)$; we focus
 on monotonic weighting functions because we prefer 
 rules that are more ``specific''
-rather than those that are more ``general'' 
-(thereby conveying less information). 
+rather than those that are more ``general''. 
 
 Thus, the total score for our list of rules is given by 
 $$\text{Score}(R) = \sum_{r \in R} \underbrace{MCount(r, R)}_{\text{coverage of $r$ in $\calD$}} \times \underbrace{W(r)}_{\text{weight of $r$}}$$ 
