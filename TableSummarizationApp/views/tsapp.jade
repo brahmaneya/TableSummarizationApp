@@ -78,7 +78,7 @@ block content
         $scope.rules[0]['vals'].push(0);
         $scope.cont="#{cont}";
         $scope.expand = function(row, col) {
-          var rp = $http.post("http://localhost:3000/expansion", {'k':$scope.k, 'mw':$scope.mw, 'W':$scope.W, 'rules':$scope.rules, 'row':row, 'col':col, 'colopt':$scope.colopt});
+          var rp = $http.post("http://localhost:3000/expansion", {'k':$scope.k, 'mw':$scope.mw, 'W':$scope.W, 'rules':$scope.rules, 'rowNo':row, 'colNo':col, 'colopt':$scope.colopt});
           rp.success(function(response) {
             $scope.rules = response;
           });
@@ -90,7 +90,7 @@ block content
         $scope.exp2 = function(arg1) {
           $scope.myList = [1, 2, 6];
           var url = "http://localhost:8080/TT/MarketingSDD";
-          $http.post(url, {'k':$scope.k, 'mw':$scope.mw, 'W':$scope.W, 'rules':$scope.rules, 'row':1, 'col':2, 'colopt':$scope.colopt}).success(function(data){
+          $http.post(url, {'k':$scope.k, 'mw':$scope.mw, 'W':$scope.W, 'rules':$scope.rules, 'rowNo':1, 'colNo':2, 'colopt':$scope.colopt}).success(function(data){
             $scope.myList = data;
           });
         }

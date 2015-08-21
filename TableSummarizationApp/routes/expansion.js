@@ -1,10 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var sjs = require('shelljs');
+var request = require('request');
+var querystring = require('querystring');
+var http = require('http');
+var fs = require('fs');
 
 /* GET home page. */
 router.post('/', function(req, res) {
-	var rowNo = req.body.row + 1;
+	var rowNo = req.body.rowNo + 1;
 	var rules = req.body.rules;
 	console.log(req.body);
 	var selectedRule = rules[rowNo-1];
