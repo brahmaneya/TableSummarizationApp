@@ -54,9 +54,6 @@ block content
           //div(ng-if="val!='*'") {{val}}
           div 
             font(size="6") {{val}}
-    ul
-      li(ng-repeat="m in myList") {{m}}
-    button(class="btn" ng-click="exp2(1)") Ch
   script.
     function myController($scope, $http) {
         $scope.cols=['Gender','Marital Status','Age','Education','Occupation','Time in Bay Area'];//,'Dual Income?','Persons in household']; // Take as input.
@@ -77,21 +74,20 @@ block content
         $scope.rules[0]['vals'].push(8993);
         $scope.rules[0]['vals'].push(0);
         $scope.cont="#{cont}";
-        $scope.expand = function(row, col) {
-          var rp = $http.post("http://localhost:3000/expansion", {'k':$scope.k, 'mw':$scope.mw, 'W':$scope.W, 'rules':$scope.rules, 'rowNo':row, 'colNo':col, 'colopt':$scope.colopt});
-          rp.success(function(response) {
-            $scope.rules = response;
-          });
-          rp.error(function(response) {
+        $scope.expand_o = function(row, col) {
+          var url = "http://localhost:3000/expansion";
+          $http.post(url, {'k':$scope.k, 'mw':$scope.mw, 'W':$scope.W, 'rules':$scope.rules, 'rowNo':row, 'colNo':col, 'colopt':$scope.colopt}).success(function(data) {
+            $scope.rules = data;
+          }).error(function(response) {
             alert("AJAX failed");
           });
         }
-        $scope.myList = [1, 2, 3];
-        $scope.exp2 = function(arg1) {
-          $scope.myList = [1, 2, 6];
+        $scope.expand = function(row, col) {
           var url = "http://localhost:8080/TT/MarketingSDD";
-          $http.post(url, {'k':$scope.k, 'mw':$scope.mw, 'W':$scope.W, 'rules':$scope.rules, 'rowNo':1, 'colNo':2, 'colopt':$scope.colopt}).success(function(data){
-            $scope.myList = data;
+          $http.post(url, {'k':$scope.k, 'mw':$scope.mw, 'W':$scope.W, 'rules':$scope.rules, 'rowNo':row, 'colNo':col, 'colopt':$scope.colopt}).success(function(data){
+            $scope.rules = data;
+          }).error(function(response) {
+            alert(response);
           });
         }
     }
