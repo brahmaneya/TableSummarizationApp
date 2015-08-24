@@ -4,7 +4,7 @@ var sjs = require('shelljs');
 
 /* GET home page. */
 router.get('/', function(req, res) {
-	res.render('tsapp');
+	res.render('tsapp_marketing');
 });
 
 module.exports = router;

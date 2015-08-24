@@ -7,7 +7,8 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var tsapp = require('./routes/tsapp');
+var tsapp_marketing = require('./routes/tsapp_marketing');
+var tsapp_donations = require('./routes/tsapp_donations');
 var expansion = require('./routes/expansion');
 
 var app = express();
@@ -26,7 +27,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/tsapp', tsapp);
+app.use('/tsapp_marketing', tsapp_marketing);
+app.use('/tsapp_donations', tsapp_donations);
 app.use('/expansion', expansion);
 
 // catch 404 and forward to error handler

@@ -84,7 +84,7 @@ block content
         }
         $scope.expand = function(row, col) {
           var url = "http://localhost:8080/TT/MarketingSDD";
-          $http.post(url, {'k':$scope.k, 'mw':$scope.mw, 'W':$scope.W, 'rules':$scope.rules, 'rowNo':row, 'colNo':col, 'colopt':$scope.colopt}).success(function(data){
+          $http.post(url, {'dataset':'marketing', 'k':$scope.k, 'mw':$scope.mw, 'W':$scope.W, 'rules':$scope.rules, 'rowNo':row, 'colNo':col, 'colopt':$scope.colopt}).success(function(data){
             $scope.rules = data;
           }).error(function(response) {
             alert(response);
