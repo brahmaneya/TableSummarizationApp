@@ -56,24 +56,29 @@ block content
             font(size="6") {{val}}
   script.
     function myController($scope, $http) {
-        $scope.cols=['Gender','Marital Status','Age','Education','Occupation','Time in Bay Area'];//,'Dual Income?','Persons in household']; // Take as input.
-        $scope.colopts=["Default", "Ignore", "Force"]; 
-        $scope.ignore={};
-        $scope.force={};
-        $scope.colopt={};
-        $scope.k=3;
-        $scope.mw=5;
-        $scope.W='Size';
-        $scope.rules=[{'depthStr':'','vals':[], 'row':0, 'depth':0, 'expanded':0}];
-        for (i in $scope.cols) {
-          $scope.ignore[$scope.cols[i]] = false;
-          $scope.colopt[$scope.cols[i]] = "Default";
-          $scope.force[$scope.cols[i]] = false;
-          $scope.rules[0]['vals'].push('*');
-        }
-        $scope.rules[0]['vals'].push(8993);
-        $scope.rules[0]['vals'].push(0);
-        $scope.cont="#{cont}";
+        var url = "http://localhost:8080/TT/MarketingSDD";
+        $http.post(url, {'purpose':'getColumns', 'dataset':'marketing'}).success(function(data){
+          $scope.cols = data;
+          $scope.colopts=["Default", "Ignore", "Force"]; 
+          $scope.ignore={};
+          $scope.force={};
+          $scope.colopt={};
+          $scope.k=3;
+          $scope.mw=5;
+          $scope.W='Size';
+          $scope.rules=[{'depthStr':'','vals':[], 'row':0, 'depth':0, 'expanded':0}];
+          for (i in $scope.cols) {
+            $scope.ignore[$scope.cols[i]] = false;
+            $scope.colopt[$scope.cols[i]] = "Default";
+            $scope.force[$scope.cols[i]] = false;
+            $scope.rules[0]['vals'].push('*');
+          }
+          $scope.rules[0]['vals'].push(24491);
+          $scope.rules[0]['vals'].push(0);
+          $scope.cont="#{cont}";
+        }).error(function(response) {
+          alert(response);
+        });
         $scope.expand_o = function(row, col) {
           var url = "http://localhost:3000/expansion";
           $http.post(url, {'k':$scope.k, 'mw':$scope.mw, 'W':$scope.W, 'rules':$scope.rules, 'rowNo':row, 'colNo':col, 'colopt':$scope.colopt}).success(function(data) {
@@ -84,7 +89,7 @@ block content
         }
         $scope.expand = function(row, col) {
           var url = "http://localhost:8080/TT/MarketingSDD";
-          $http.post(url, {'dataset':'marketing', 'k':$scope.k, 'mw':$scope.mw, 'W':$scope.W, 'rules':$scope.rules, 'rowNo':row, 'colNo':col, 'colopt':$scope.colopt}).success(function(data){
+          $http.post(url, {'purpose':'getData', 'dataset':'marketing', 'k':$scope.k, 'mw':$scope.mw, 'W':$scope.W, 'rules':$scope.rules, 'rowNo':row, 'colNo':col, 'colopt':$scope.colopt}).success(function(data){
             $scope.rules = data;
           }).error(function(response) {
             alert(response);
