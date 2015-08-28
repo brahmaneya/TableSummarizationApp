@@ -1,23 +1,24 @@
 extends layout
 
 block content
-  h1= title
+  h3= "Marketing Survey: Demographic data of customers at a shopping mall"
   link(rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
   script(src='http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js')  
   div(class="container" ng-app='' ng-controller="myController")
-    div(class="form-group")
-      label Number of Rules: 
-      input(type='number' name'k' class="form-control" ng-model='k')
-    div(class="form-group")
-      label Max Weight:
-      input(type='number' class="form-control" ng-model='mw')
-    div(class="form-group")
-      label(for="sel1") Weighting Scheme:
-      select(class="form-control" ng-model='W')
-        option(value="Size") Size
-        option(value="Bits") Bits
-        option(value="Square") Square
-        option(value="Min2") Min2   
+    form(class="form-inline")
+      div(class="form-group")
+        label &nbsp;&nbsp;&nbsp;&nbsp;Number of Rules:&nbsp;&nbsp;&nbsp;&nbsp;
+        input(type='number' name'k' class="form-control" ng-model='k')
+      div(class="form-group")
+        label &nbsp;&nbsp;&nbsp;&nbsp;Max Weight:&nbsp;&nbsp;&nbsp;&nbsp;
+        input(type='number' class="form-control" ng-model='mw')
+      div(class="form-group")
+        label(for="sel1") &nbsp;&nbsp;&nbsp;&nbsp;Weighting Scheme:&nbsp;&nbsp;&nbsp;&nbsp;
+        select(class="form-control" ng-model='W')
+          option(value="Size") Size
+          option(value="Bits") Bits
+          option(value="Square") Square
+          option(value="Min2") Min2   
     br.
     table(class="table table-striped")
       thead
@@ -38,11 +39,11 @@ block content
         td 
         td
         td(ng-repeat="col in cols")
-           font(size="5") {{col}}
+           font(size="4") {{col}}
         td 
-          font(size="5") Count
+          font(size="4") Count
         td 
-          font(size="5") Weight
+          font(size="4") Weight
       tr(ng-repeat="rule in rules")
         td 
           button(class="btn" ng-click="expand(rule.row, -1)" ng-if="rule.expanded == 0") +
@@ -53,7 +54,7 @@ block content
           //button(ng-if="val=='*'" ng-click="expand(rule.row, $index)") {{val}}
           //div(ng-if="val!='*'") {{val}}
           div 
-            font(size="6") {{val}}
+            font(size="4") {{val}}
   script.
     function myController($scope, $http) {
         var url = "http://localhost:8080/TT/MarketingSDD";
